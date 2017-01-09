@@ -1,0 +1,77 @@
+/*copy.ys by Jet (Zhang Xiaoshuai 1500010716)*/
+
+    .pos 0
+INIT:   
+    irmovl  STACK,%esp
+    irmovl  STACK,%ebp
+    call    MAIN
+    halt
+
+
+MAIN:
+    pushl   %ebp
+    rrmovl  %esp,%ebp
+    irmovl  $3, %edx
+    pushl   %edx
+    irmovl  dest, %edx
+    pushl   %edx
+    irmovl  src, %edx
+    pushl   %edx
+    call    COPY
+    rrmovl  %ebp,%esp
+    popl    %ebp
+    ret
+
+
+COPY:
+    pushl   %ebp
+    rrmovl  %esp,%ebp
+    pushl   %ebx
+    pushl   %esi
+    pushl   %edi
+    mrmovl  0x1c(%esp),%ecx /*ecx = len*/
+    mrmovl  0x18(%esp),%edx /*edx = dest*/
+    mrmovl  0x14(%esp),%esi /*esi = src*/
+    xorl    %eax,%eax
+TEST:
+    irmovl  $0,%ebx
+    subl    %ebx,%ecx
+    jle     RETURN
+LOOP:   
+    mrmovl  (%esi),%edi /*edi = val*/
+    irmovl  $4,%ebx
+    addl    %ebx,%esi
+    rmmovl  %edi,(%edx)
+    addl    %ebx,%edx
+    xorl    %edi,%eax
+    irmovl  $1,%ebx
+    subl    %ebx,%ecx
+    jmp     TEST
+RETURN: 
+    popl    %edi
+    popl    %esi
+    popl    %ebx
+    rrmovl  %ebp,%esp
+    popl    %ebp
+    ret
+
+
+
+    .pos 0x100
+STACK:
+
+
+    .pos 0x200
+    .align 4
+# Source block
+src:
+    .long 0x00a
+    .long 0x0b0
+    .long 0xc00
+# Destination block
+dest:
+    .long 0x111
+    .long 0x222
+    .long 0x333
+
+

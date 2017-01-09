@@ -1,0 +1,77 @@
+                      | /*copy.ys by Jet (Zhang Xiaoshuai 1500010716)*/
+                      | 
+  0x000:              |     .pos 0
+  0x000:              | INIT:   
+  0x000: 30f400010000 |     irmovl  STACK,%esp
+  0x006: 30f500010000 |     irmovl  STACK,%ebp
+  0x00c: 8012000000   |     call    MAIN
+  0x011: 00           |     halt
+                      | 
+                      | 
+  0x012:              | MAIN:
+  0x012: a05f         |     pushl   %ebp
+  0x014: 2045         |     rrmovl  %esp,%ebp
+  0x016: 30f203000000 |     irmovl  $3, %edx
+  0x01c: a02f         |     pushl   %edx
+  0x01e: 30f20c020000 |     irmovl  dest, %edx
+  0x024: a02f         |     pushl   %edx
+  0x026: 30f200020000 |     irmovl  src, %edx
+  0x02c: a02f         |     pushl   %edx
+  0x02e: 8038000000   |     call    COPY
+  0x033: 2054         |     rrmovl  %ebp,%esp
+  0x035: b05f         |     popl    %ebp
+  0x037: 90           |     ret
+                      | 
+                      | 
+  0x038:              | COPY:
+  0x038: a05f         |     pushl   %ebp
+  0x03a: 2045         |     rrmovl  %esp,%ebp
+  0x03c: a03f         |     pushl   %ebx
+  0x03e: a06f         |     pushl   %esi
+  0x040: a07f         |     pushl   %edi
+  0x042: 50141c000000 |     mrmovl  0x1c(%esp),%ecx /*ecx = len*/
+  0x048: 502418000000 |     mrmovl  0x18(%esp),%edx /*edx = dest*/
+  0x04e: 506414000000 |     mrmovl  0x14(%esp),%esi /*esi = src*/
+  0x054: 6300         |     xorl    %eax,%eax
+  0x056:              | TEST:
+  0x056: 30f300000000 |     irmovl  $0,%ebx
+  0x05c: 6131         |     subl    %ebx,%ecx
+  0x05e: 7188000000   |     jle     RETURN
+  0x063:              | LOOP:   
+  0x063: 507600000000 |     mrmovl  (%esi),%edi /*edi = val*/
+  0x069: 30f304000000 |     irmovl  $4,%ebx
+  0x06f: 6036         |     addl    %ebx,%esi
+  0x071: 407200000000 |     rmmovl  %edi,(%edx)
+  0x077: 6032         |     addl    %ebx,%edx
+  0x079: 6370         |     xorl    %edi,%eax
+  0x07b: 30f301000000 |     irmovl  $1,%ebx
+  0x081: 6131         |     subl    %ebx,%ecx
+  0x083: 7056000000   |     jmp     TEST
+  0x088:              | RETURN: 
+  0x088: b07f         |     popl    %edi
+  0x08a: b06f         |     popl    %esi
+  0x08c: b03f         |     popl    %ebx
+  0x08e: 2054         |     rrmovl  %ebp,%esp
+  0x090: b05f         |     popl    %ebp
+  0x092: 90           |     ret
+                      | 
+                      | 
+                      | 
+  0x100:              |     .pos 0x100
+  0x100:              | STACK:
+                      | 
+                      | 
+  0x200:              |     .pos 0x200
+  0x200:              |     .align 4
+                      | # Source block
+  0x200:              | src:
+  0x200: 0a000000     |     .long 0x00a
+  0x204: b0000000     |     .long 0x0b0
+  0x208: 000c0000     |     .long 0xc00
+                      | # Destination block
+  0x20c:              | dest:
+  0x20c: 11010000     |     .long 0x111
+  0x210: 22020000     |     .long 0x222
+  0x214: 33030000     |     .long 0x333
+                      | 
+                      | 

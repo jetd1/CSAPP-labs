@@ -1,0 +1,32 @@
+init:
+irmovl $1,%eax
+irmovl $1,%ecx
+irmovl $1,%esi
+irmovl $1,%esi
+rrmovl %eax,%ebx
+rrmovl %ecx,%edx
+rrmovl %esi,%edi
+irmovl $1,%eax
+rrmovl %eax,%ebx
+rrmovl %ecx,%edx
+rrmovl %esi,%edi
+irmovl $1,%eax
+jmp TAG
+rrmovl %eax,%ebx
+rrmovl %ecx,%edx
+rrmovl %esi,%edi
+irmovl $1,%eax
+rrmovl %eax,%ebx
+rrmovl %ecx,%edx
+rrmovl %esi,%edi
+irmovl $1,%eax
+TAG:
+rrmovl %eax,%ebx
+rrmovl %ecx,%edx
+rrmovl %esi,%edi
+irmovl $1,%eax
+rrmovl %eax,%ebx
+rrmovl %ecx,%edx
+rrmovl %esi,%edi
+irmovl $1,%eax
+halt

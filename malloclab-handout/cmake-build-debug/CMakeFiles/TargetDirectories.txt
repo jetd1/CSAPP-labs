@@ -1,0 +1,3 @@
+/home/jet/桌面/ICS/labs/malloclab-handout/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jet/桌面/ICS/labs/malloclab-handout/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/jet/桌面/ICS/labs/malloclab-handout/cmake-build-debug/CMakeFiles/malloclab_handout.dir

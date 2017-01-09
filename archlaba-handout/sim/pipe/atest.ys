@@ -1,0 +1,15 @@
+nop
+nop
+nop
+nop
+nop
+nop
+irmovl  $5,%edx
+irmovl  $3,%eax
+addl    %edx,%eax
+nop
+nop
+nop
+nop
+nop
+nop

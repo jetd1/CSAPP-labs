@@ -1,0 +1,14 @@
+  0x000: 10           | nop
+  0x001: 10           | nop
+  0x002: 10           | nop
+  0x003: 10           | nop
+  0x004: 10           | nop
+  0x005: 10           | nop
+  0x006: 30f205000000 | irmovl  $5,%edx
+  0x00c: 30f003000000 | irmovl  $3,%eax
+  0x012: 6020         | addl    %edx,%eax
+  0x014: 10           | nop
+  0x015: 10           | nop
+  0x016: 10           | nop
+  0x017: 10           | nop
+  0x018: 10           | nop

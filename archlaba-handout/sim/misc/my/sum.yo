@@ -1,0 +1,58 @@
+                      | /*sum.ys by Jet (Zhang Xiaoshuai 1500010716)*/
+                      | 
+  0x000:              |     .pos 0
+  0x000:              | INIT:   
+  0x000: 30f400010000 |     irmovl  STACK,%esp
+  0x006: 30f500010000 |     irmovl  STACK,%ebp
+  0x00c: 8012000000   |     call    MAIN
+  0x011: 00           |     halt
+                      | 
+                      | 
+  0x012:              | MAIN:
+  0x012: a05f         |     pushl   %ebp
+  0x014: 2045         |     rrmovl  %esp,%ebp
+  0x016: 30f200020000 |     irmovl  ele1, %edx
+  0x01c: a02f         |     pushl   %edx
+  0x01e: 8028000000   |     call    SUM
+  0x023: 2054         |     rrmovl  %ebp,%esp
+  0x025: b05f         |     popl    %ebp
+  0x027: 90           |     ret
+                      | 
+                      | 
+  0x028:              | SUM:
+  0x028: a05f         |     pushl   %ebp
+  0x02a: 2045         |     rrmovl  %esp,%ebp
+  0x02c: 502408000000 |     mrmovl  0x8(%esp),%edx
+  0x032: 6300         |     xorl    %eax,%eax
+  0x034: 6222         |     andl    %edx,%edx
+  0x036: 7350000000   |     je      RETURN
+  0x03b:              | LOOP:   
+  0x03b: 501200000000 |     mrmovl  (%edx),%ecx
+  0x041: 6010         |     addl    %ecx,%eax
+  0x043: 502204000000 |     mrmovl  0x4(%edx),%edx
+  0x049: 6222         |     andl    %edx,%edx
+  0x04b: 743b000000   |     jne     LOOP
+  0x050:              | RETURN: 
+  0x050: 2054         |     rrmovl  %ebp,%esp
+  0x052: b05f         |     popl    %ebp
+  0x054: 90           |     ret
+                      | 
+                      | 
+                      | 
+  0x100:              |     .pos 0x100
+  0x100:              | STACK:
+                      | 
+                      | 
+  0x200:              |     .pos 0x200
+  0x200:              |     .align 4
+  0x200:              | ele1:
+  0x200: 0a000000     |     .long 0x00a
+  0x204: 08020000     |     .long ele2
+  0x208:              | ele2:
+  0x208: b0000000     |     .long 0x0b0
+  0x20c: 10020000     |     .long ele3
+  0x210:              | ele3:
+  0x210: 000c0000     |     .long 0xc00
+  0x214: 00000000     |     .long 0
+                      | 
+                      | 

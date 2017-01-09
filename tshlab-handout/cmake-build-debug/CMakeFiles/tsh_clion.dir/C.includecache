@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jet/桌面/ICS/labs/tsh-clion/tsh.c
+assert.h
+-
+stdio.h
+-
+stdlib.h
+-
+unistd.h
+-
+string.h
+-
+ctype.h
+-
+signal.h
+-
+sys/types.h
+-
+fcntl.h
+-
+sys/wait.h
+-
+errno.h
+-
+

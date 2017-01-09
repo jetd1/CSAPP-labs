@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/tsh_clion.dir/tsh.c.o  -o tsh_clion 

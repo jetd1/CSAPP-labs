@@ -1,0 +1,60 @@
+/*rsum.ys by Jet (Zhang Xiaoshuai 1500010716)*/
+
+    .pos 0
+INIT:   
+    irmovl  STACK,%esp
+    irmovl  STACK,%ebp
+    call    MAIN
+    halt
+
+
+MAIN:
+    pushl   %ebp
+    rrmovl  %esp,%ebp
+    irmovl  ele1, %edx
+    pushl   %edx
+    call    RSUM
+    rrmovl  %ebp,%esp
+    popl    %ebp
+    ret
+
+
+RSUM:
+    pushl   %ebp
+    rrmovl  %esp,%ebp
+    mrmovl  0x8(%esp),%edx
+    xorl    %eax,%eax
+    andl    %edx,%edx
+    je      RETURN
+    mrmovl  (%edx),%eax
+    pushl   %eax
+    mrmovl  0x4(%edx),%ecx
+    pushl   %ecx
+    call    RSUM
+    popl    %ecx
+    popl    %ecx
+    addl    %ecx,%eax
+RETURN: 
+    rrmovl  %ebp,%esp
+    popl    %ebp
+    ret
+
+
+
+    .pos 0x100
+STACK:
+
+
+    .pos 0x200
+    .align 4
+ele1:
+    .long 0x00a
+    .long ele2
+ele2:
+    .long 0x0b0
+    .long ele3
+ele3:
+    .long 0xc00
+    .long 0
+
+

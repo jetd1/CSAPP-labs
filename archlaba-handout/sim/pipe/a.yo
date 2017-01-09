@@ -1,0 +1,31 @@
+  0x000: 10           | nop
+  0x001: 30f001000000 | irmovl $1,%eax
+  0x007: 30f101000000 | irmovl $1,%ecx
+  0x00d: 30f601000000 | irmovl $1,%esi
+  0x013: 30f601000000 | irmovl $1,%esi
+  0x019: 2003         | rrmovl %eax,%ebx
+  0x01b: 2012         | rrmovl %ecx,%edx
+  0x01d: 2067         | rrmovl %esi,%edi
+  0x01f: 30f001000000 | irmovl $1,%eax
+  0x025: 2003         | rrmovl %eax,%ebx
+  0x027: 2012         | rrmovl %ecx,%edx
+  0x029: 2067         | rrmovl %esi,%edi
+  0x02b: 30f001000000 | irmovl $1,%eax
+  0x031: 704e000000   | jmp TAG
+  0x036: 2003         | rrmovl %eax,%ebx
+  0x038: 2012         | rrmovl %ecx,%edx
+  0x03a: 2067         | rrmovl %esi,%edi
+  0x03c: 30f001000000 | irmovl $1,%eax
+  0x042: 2003         | rrmovl %eax,%ebx
+  0x044: 2012         | rrmovl %ecx,%edx
+  0x046: 2067         | rrmovl %esi,%edi
+  0x048: 30f001000000 | irmovl $1,%eax
+  0x04e:              | TAG:
+  0x04e: 2003         | rrmovl %eax,%ebx
+  0x050: 2012         | rrmovl %ecx,%edx
+  0x052: 2067         | rrmovl %esi,%edi
+  0x054: 30f001000000 | irmovl $1,%eax
+  0x05a: 2003         | rrmovl %eax,%ebx
+  0x05c: 2012         | rrmovl %ecx,%edx
+  0x05e: 2067         | rrmovl %esi,%edi
+  0x060: 30f001000000 | irmovl $1,%eax

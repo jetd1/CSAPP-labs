@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/proxylab_handout.dir/csapp.c.o CMakeFiles/proxylab_handout.dir/proxy.c.o CMakeFiles/proxylab_handout.dir/cache.c.o CMakeFiles/proxylab_handout.dir/hri.c.o CMakeFiles/proxylab_handout.dir/res.c.o  -o proxylab_handout -lpthread 

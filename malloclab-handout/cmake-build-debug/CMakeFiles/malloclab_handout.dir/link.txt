@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/malloclab_handout.dir/memlib.c.o CMakeFiles/malloclab_handout.dir/mm.c.o CMakeFiles/malloclab_handout.dir/mm.seg.c.o CMakeFiles/malloclab_handout.dir/main.c.o  -o malloclab_handout 

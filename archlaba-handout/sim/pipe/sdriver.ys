@@ -1,0 +1,213 @@
+#######################################################################
+# Test for copying block of size 4;
+#######################################################################
+	.pos 0
+main:	irmovl Stack, %esp  	# Set up stack pointer
+	irmovl Stack, %ebp  	# Set up base pointer
+
+	# Set up arguments for copy function and then invoke it
+	irmovl $4, %eax		# src and dst have 4 elements
+	pushl %eax
+	irmovl dest, %eax	# dst array
+	pushl %eax
+	irmovl src, %eax	# src array
+	pushl %eax
+	call ncopy		 
+	halt			# should halt with num nonzeros in %eax
+StartFun:
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len ints to dst.
+# Return the number of positive ints (>0) contained in src.
+#
+# Include your name and ID here.
+#
+# Describe how and why you modified the baseline code.
+#
+##################################################################
+# Do not modify this portion
+# Function prologue.
+ncopy:	pushl %ebp		# Save old frame pointer
+	rrmovl %esp,%ebp	# Set up new frame pointer
+	pushl %esi		# Save callee-save regs
+	pushl %ebx
+	pushl %edi
+	mrmovl 8(%ebp),%ebx	# src
+	mrmovl 16(%ebp),%edx	# len
+	mrmovl 12(%ebp),%ecx	# dst
+
+##################################################################
+	xorl	%eax,%eax
+	andl	%edx,%edx
+	jle		Done
+	iaddl	$-8,%edx
+	jl		MAKE_UP
+LOOP1:
+	mrmovl	(%ebx),%esi
+	mrmovl	4(%ebx),%edi
+	rmmovl	%esi,(%ecx)
+	andl	%esi,%esi
+	jle		LOOP2
+	iaddl	$1,%eax
+LOOP2:
+	mrmovl	8(%ebx),%esi
+	rmmovl	%edi,4(%ecx)
+	andl	%edi,%edi
+	jle		LOOP3
+	iaddl	$1,%eax
+LOOP3:
+	mrmovl	12(%ebx),%edi
+	rmmovl	%esi,8(%ecx)
+	andl	%esi,%esi
+	jle		LOOP4
+	iaddl	$1,%eax
+LOOP4:
+	mrmovl	16(%ebx),%esi
+	rmmovl	%edi,12(%ecx)
+	andl	%edi,%edi
+	jle		LOOP5
+	iaddl	$1,%eax
+LOOP5:
+	mrmovl	20(%ebx), %edi
+	rmmovl	%esi,16(%ecx)
+	andl	%esi,%esi
+	jle		LOOP6
+	iaddl	$1,%eax
+LOOP6:
+	mrmovl	24(%ebx),%esi
+	rmmovl	%edi,20(%ecx)
+	andl	%edi,%edi
+	jle		LOOP7
+	iaddl	$1,%eax
+LOOP7:
+	mrmovl	28(%ebx), %edi
+	rmmovl	%esi,24(%ecx)
+	andl	%esi,%esi
+	jle		LOOP8
+	iaddl	$1,%eax
+LOOP8:
+	rmmovl	%edi,28(%ecx)
+	andl	%edi,%edi
+	jle		NEXT
+	iaddl	$1,%eax
+NEXT:
+	iaddl	$32,%ebx
+	iaddl	$32,%ecx
+	iaddl	$-8,%edx
+	jge		LOOP1
+MAKE_UP:
+	iaddl	$8,%edx
+MAKE_UP_1:
+	iaddl	$-1,%edx
+	jl		Done
+	mrmovl	(%ebx),%esi
+	mrmovl	4(%ebx),%edi
+	rmmovl	%esi,(%ecx)
+	andl	%esi,%esi
+	jle		MAKE_UP_2
+	iaddl	$1,%eax
+MAKE_UP_2:
+	iaddl	$-1,%edx
+	jl		Done
+	mrmovl	8(%ebx),%esi
+	rmmovl	%edi,4(%ecx)
+	andl	%edi,%edi
+	jle		MAKE_UP_3
+	iaddl	$1,%eax
+MAKE_UP_3:
+	iaddl	$-1,%edx
+	jl		Done
+	mrmovl	12(%ebx),%edi
+	rmmovl	%esi,8(%ecx)
+	andl	%esi,%esi
+	jle		MAKE_UP_4
+	iaddl	$1,%eax
+MAKE_UP_4:
+	iaddl	$-1,%edx
+	jl		Done
+	mrmovl	16(%ebx),%esi
+	rmmovl	%edi,12(%ecx)
+	andl	%edi,%edi
+	jle		MAKE_UP_5
+	iaddl	$1,%eax
+MAKE_UP_5:
+	iaddl	$-1,%edx
+	jl		Done
+	mrmovl	20(%ebx),%edi
+	rmmovl	%esi,16(%ecx)
+	andl	%esi,%esi
+	jle		MAKE_UP_6
+	iaddl	$1,%eax
+MAKE_UP_6:
+	iaddl	$-1,%edx
+	jl		Done
+	mrmovl	24(%ebx),%esi
+	rmmovl	%edi,20(%ecx)
+	andl	%edi,%edi
+	jle		MAKE_UP_7
+	iaddl	$1,%eax
+MAKE_UP_7:
+	iaddl	$-1,%edx
+	jl		Done
+	rmmovl	%esi,24(%ecx)
+	andl	%esi,%esi
+	jle		Done
+	iaddl	$1,%eax
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	popl %edi               # Restore callee-save registers
+	popl %ebx
+	popl %esi
+	rrmovl %ebp, %esp
+	popl %ebp
+	ret
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */
+EndFun:
+
+###############################
+# Source and destination blocks 
+###############################
+	.align 4
+src:
+	.long 1
+	.long -2
+	.long -3
+	.long 4
+	.long 0xbcdefa # This shouldn't get moved
+
+	.align 16
+Predest:
+	.long 0xbcdefa
+dest:
+	.long 0xcdefab
+	.long 0xcdefab
+	.long 0xcdefab
+	.long 0xcdefab
+Postdest:
+	.long 0xdefabc
+
+.align 4
+# Run time stack
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+
+Stack:
